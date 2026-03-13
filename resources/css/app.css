@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.jsx';
+
+@theme {
+    /* Typography */
+    --font-heading: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Colors - Refined Palette */
+    --color-primary-50: #f0f4ff;
+    --color-primary-100: #e0e7ff;
+    --color-primary-600: #4f46e5;
+    --color-primary-700: #4338ca;
+    --color-primary-800: #3730a3;
+
+    --color-slate-50: #f8fafc;
+    --color-slate-100: #f1f5f9;
+    --color-slate-200: #e2e8f0;
+    --color-slate-400: #94a3b8;
+    --color-slate-500: #64748b;
+    --color-slate-600: #475569;
+    --color-slate-900: #0f172a;
+
+    --color-indigo-50: #eef2ff;
+    --color-indigo-100: #e0e7ff;
+    --color-indigo-600: #4f46e5;
+    --color-indigo-700: #4338ca;
+
+    --color-emerald-50: #ecfdf5;
+    --color-emerald-500: #10b981;
+    --color-emerald-600: #059669;
+
+    /* Shadows - Premium & Deep */
+    --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 12px -5px rgba(0, 0, 0, 0.03);
+    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+@layer base {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading tracking-tight;
+    }
+
+    body {
+        @apply font-sans antialiased text-slate-900 bg-slate-50;
+        text-rendering: optimizeLegibility;
+    }
+
+    /* Custom scrollbar for a polished feel */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+    }
+}
+
+@layer components {
+    .human-card {
+        @apply bg-white border border-slate-100/80 rounded-3xl shadow-soft hover:shadow-premium transition-all duration-500;
+    }
+
+    .human-button-primary {
+        @apply inline-flex items-center justify-center px-8 py-3.5 rounded-2xl bg-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300;
+        background-image: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-700));
+    }
+
+    .human-input {
+        @apply block w-full rounded-2xl border-slate-100 bg-slate-50/50 px-6 py-3.5 text-sm font-bold text-slate-900 shadow-sm focus:border-indigo-400 focus:bg-white focus:ring-0 transition-all duration-300 placeholder:text-slate-400;
+    }
+
+    .human-badge {
+        @apply inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all;
+    }
+
+    .human-badge-indigo {
+        @apply bg-indigo-50 text-indigo-700 border-indigo-100;
+    }
+
+    .human-badge-emerald {
+        @apply bg-emerald-50 text-emerald-700 border-emerald-100;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
