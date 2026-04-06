@@ -74,27 +74,32 @@ export default function Doctors() {
                 </header>
 
                 {/* Refined Search Container */}
-                <div className="human-card p-8 bg-white mb-16 animate-in fade-in slide-in-from-top-4 duration-500">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="glass-card p-10 bg-white/80 border border-white mb-16 shadow-premium relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl pointer-events-none"></div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                         <div>
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Nom du médecin</label>
+                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span className="opacity-70">🔍</span> Nom du médecin
+                            </label>
                             <input
                                 type="text"
                                 name="name"
                                 placeholder="ex: Dr. Martin..."
                                 value={filters.name}
                                 onChange={handleFilterChange}
-                                className="human-input"
+                                className="human-input group-hover:border-indigo-100 transition-colors bg-white/50 backdrop-blur-sm"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Spécialité</label>
+                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span className="opacity-70">🩺</span> Spécialité
+                            </label>
                             <select
                                 name="specialty_id"
                                 value={filters.specialty_id}
                                 onChange={handleFilterChange}
-                                className="human-input"
+                                className="human-input group-hover:border-indigo-100 transition-colors bg-white/50 backdrop-blur-sm cursor-pointer"
                             >
                                 <option value="">Toutes les spécialités</option>
                                 {specialties.map(s => (
@@ -104,14 +109,16 @@ export default function Doctors() {
                         </div>
 
                         <div>
-                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Localisation</label>
+                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span className="opacity-70">📍</span> Localisation
+                            </label>
                             <input
                                 type="text"
                                 name="location"
                                 placeholder="ex: Paris, Lyon..."
                                 value={filters.location}
                                 onChange={handleFilterChange}
-                                className="human-input"
+                                className="human-input group-hover:border-indigo-100 transition-colors bg-white/50 backdrop-blur-sm"
                             />
                         </div>
                     </div>
@@ -128,20 +135,22 @@ export default function Doctors() {
                         {doctors.map((doctor, index) => (
                             <div
                                 key={doctor.id}
-                                className="human-card flex flex-col group animate-in fade-in slide-in-from-bottom-4 duration-500"
+                                className="human-card flex flex-col group animate-fade-in-up hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] duration-500 bg-white"
                                 style={{ animationDelay: `${index * 100}ms` }}
                             >
                                 <div className="p-8">
-                                    <div className="flex items-start justify-between mb-6">
-                                        <div className="h-16 w-16 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-extrabold text-2xl font-heading shadow-sm group-hover:scale-105 transition-transform duration-300">
+                                    <div className="flex items-start justify-between mb-6 relative">
+                                        <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100/50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-extrabold text-2xl font-heading shadow-inner group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 z-10 relative">
                                             {doctor.name.charAt(0)}
                                         </div>
-                                        <div className="flex flex-col items-end gap-2">
-                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                        <div className="absolute top-2 left-2 w-16 h-16 bg-indigo-400/20 rounded-2xl blur-xl group-hover:opacity-100 opacity-0 transition-opacity duration-500 -z-0"></div>
+                                        
+                                        <div className="flex flex-col items-end gap-2 relative z-10">
+                                            <span className="human-badge human-badge-emerald shadow-sm">
                                                 ✅ Vérifié
                                             </span>
-                                            <div className="flex items-center text-amber-500 bg-amber-50 px-2 py-1 rounded-lg border border-amber-100">
-                                                <span className="text-xs font-black mr-1">
+                                            <div className="flex items-center text-amber-500 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-100/50 shadow-sm">
+                                                <span className="text-xs font-black mr-1.5">
                                                     {Number(doctor.doctor_profile?.reviews_avg_rating || 0).toFixed(1)}
                                                 </span>
                                                 <span className="text-[10px]">★</span>
@@ -149,28 +158,28 @@ export default function Doctors() {
                                         </div>
                                     </div>
 
-                                    <h3 className="text-xl font-extrabold text-slate-900 font-heading mb-1 tracking-tight">
+                                    <h3 className="text-2xl font-extrabold text-slate-900 font-heading mb-1 tracking-tight group-hover:text-indigo-700 transition-colors">
                                         Dr. {doctor.name}
                                     </h3>
-                                    <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-6">
+                                    <p className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-6">
                                         {doctor.doctor_profile?.specialty?.name || 'Médecin Généraliste'}
                                     </p>
 
                                     <div className="space-y-4">
-                                        <div className="flex items-center text-sm text-slate-500 font-medium">
-                                            <span className="mr-3 text-lg">📍</span>
-                                            {doctor.doctor_profile?.office_address || 'Consultation en ligne'}
-                                        </div>
-                                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 italic text-slate-500 text-sm leading-relaxed line-clamp-2">
-                                            "{doctor.doctor_profile?.bio || 'Professionnel de santé dévoué aux soins des patients.'}"
+                                        <div className="flex flex-col text-sm text-slate-500 font-medium bg-slate-50/50 p-4 rounded-2xl border border-slate-100 group-hover:border-slate-200 transition-colors relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-indigo-50 to-transparent opacity-50 rounded-bl-full pointer-events-none"></div>
+                                            <div className="flex items-start mb-2">
+                                                <span className="mr-3 text-lg opacity-70">📍</span>
+                                                <span className="leading-tight">{doctor.doctor_profile?.office_address || 'Consultation en ligne'}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="mt-auto p-8 pt-0">
+                                <div className="mt-auto p-8 pt-0 relative z-10">
                                     <Link
                                         to={`/book/${doctor.id}`}
-                                        className="human-button-primary w-full py-4 text-base font-extrabold shadow-indigo-100"
+                                        className="human-button-primary w-full py-4 text-base shadow-indigo-100"
                                     >
                                         Prendre rendez-vous
                                     </Link>

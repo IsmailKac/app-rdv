@@ -8,6 +8,8 @@ export default function Layout() {
     const { user, logout } = useAuth();
     const location = useLocation();
     const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+    const isHomePage = location.pathname === '/';
+    const isFullWidthPage = isAuthPage || isHomePage;
 
     const handleLogout = async () => {
         await logout();
@@ -22,8 +24,9 @@ export default function Layout() {
                         <div className="flex justify-between h-16">
                             <div className="flex">
                                 <div className="flex-shrink-0 flex items-center">
-                                    <Link to="/" className="flex items-center gap-2 group">
-                                        <span className="text-2xl font-black text-indigo-600 tracking-tighter font-heading">SIGREM<span className="text-slate-900"></span></span>
+                                    <Link to="/" className="flex items-center gap-3 group">
+                                        <img src="/images/logo.png" alt="Sigrem Logo" className="h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" />
+                                        <span className="text-3xl font-extrabold text-slate-800 tracking-tight font-heading">Sigrem</span>
                                     </Link>
                                 </div>
                                 <div className="hidden sm:ml-10 sm:flex sm:space-x-8">
@@ -51,20 +54,20 @@ export default function Layout() {
                                     <div className="flex items-center gap-4">
                                         <NotificationCenter />
                                         <div className="hidden md:flex flex-col items-end">
-                                            <span className="text-sm font-semibold text-slate-900 leading-none">{user.name}</span>
-                                            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">{user.role}</span>
+                                            <span className="text-sm font-bold text-slate-900 leading-none">{user.name}</span>
+                                            <span className="text-[10px] text-indigo-600 uppercase tracking-widest font-black mt-1">{user.role}</span>
                                         </div>
                                         <button
                                             onClick={handleLogout}
-                                            className="ml-4 text-sm font-medium text-red-600 hover:text-red-500 transition-colors"
+                                            className="ml-4 text-sm font-black text-red-500 hover:text-red-700 transition-colors bg-red-50 hover:bg-red-100 px-4 py-2 rounded-xl"
                                         >
                                             Déconnexion
                                         </button>
                                     </div>
                                 ) : (
-                                    <div className="flex items-center gap-3">
-                                        <Link to="/login" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">Connexion</Link>
-                                        <Link to="/register" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm active:scale-95 transition-all">
+                                    <div className="flex items-center gap-5">
+                                        <Link to="/login" className="text-sm font-extrabold text-slate-600 hover:text-indigo-600 transition-colors tracking-wide">Connexion</Link>
+                                        <Link to="/register" className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl border border-transparent text-sm font-extrabold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-200 hover:-translate-y-0.5 transform transition-all">
                                             S'inscrire
                                         </Link>
                                     </div>
@@ -75,8 +78,8 @@ export default function Layout() {
                 </nav>
             )}
 
-            <main className={`flex-grow ${isAuthPage ? "" : "py-12"}`}>
-                <div className={isAuthPage ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
+            <main className={`flex-grow ${isFullWidthPage ? "" : "py-12"}`}>
+                <div className={isFullWidthPage ? "" : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"}>
                     <Outlet />
                 </div>
             </main>
@@ -86,8 +89,9 @@ export default function Layout() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                             <div className="flex flex-col gap-4">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xl font-black text-indigo-600 tracking-tighter font-heading">SIGREM<span className="text-slate-900">.</span></span>
+                                <div className="flex items-center gap-3 group cursor-pointer w-fit">
+                                    <img src="/images/logo.png" alt="Sigrem Logo" className="h-10 w-auto object-contain opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
+                                    <span className="text-2xl font-extrabold text-slate-400 group-hover:text-slate-600 tracking-tight font-heading transition-colors">Sigrem</span>
                                 </div>
                                 <p className="text-slate-500 text-sm max-w-xs">
                                     La plateforme de confiance pour la gestion de vos rendez-vous médicaux en toute simplicité.

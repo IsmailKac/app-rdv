@@ -36,18 +36,54 @@
     --color-emerald-600: #059669;
 
     /* Shadows - Premium & Deep */
-    --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 12px -5px rgba(0, 0, 0, 0.03);
-    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 10px 20px -10px rgba(0, 0, 0, 0.05);
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+    --shadow-glow: 0 0 25px -5px var(--color-indigo-600);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+    /* Glass Effect Variables */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+
+    /* Custom Animations */
+    --animate-blob: blob 10s infinite alternate;
+    --animate-fade-in-up: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    --animate-fade-in-right: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    --animate-shimmer: shimmer 2.5s linear infinite;
+    --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
 @layer base {
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         @apply font-heading tracking-tight;
     }
 
@@ -58,7 +94,8 @@
 
     /* Custom scrollbar for a polished feel */
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
+        height: 6px;
     }
 
     ::-webkit-scrollbar-track {
@@ -66,34 +103,47 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+        @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
     }
 }
 
 @layer components {
     .human-card {
-        @apply bg-white border border-slate-100/80 rounded-3xl shadow-soft hover:shadow-premium transition-all duration-500;
+        @apply bg-white border border-slate-100 rounded-3xl shadow-soft hover:shadow-premium hover:-translate-y-1.5 transition-all duration-500 relative overflow-hidden;
+    }
+
+    .glass-card {
+        @apply bg-white/60 backdrop-blur-2xl border border-white/60 rounded-3xl shadow-glass hover:shadow-premium relative overflow-hidden transition-all duration-500;
     }
 
     .human-button-primary {
-        @apply inline-flex items-center justify-center px-8 py-3.5 rounded-2xl bg-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300;
+        @apply inline-flex items-center justify-center px-8 py-3.5 rounded-2xl bg-indigo-600 text-white font-extrabold text-sm shadow-lg shadow-indigo-200/50 hover:shadow-indigo-400/50 hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-300 relative overflow-hidden;
         background-image: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-700));
+    }
+    
+    .human-button-primary::after {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:animate-shimmer;
+    }
+
+    .human-button-secondary {
+        @apply inline-flex items-center justify-center px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-700 font-extrabold text-sm shadow-sm hover:bg-slate-50 hover:shadow-md hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-300;
     }
 
     .human-input {
-        @apply block w-full rounded-2xl border-slate-100 bg-slate-50/50 px-6 py-3.5 text-sm font-bold text-slate-900 shadow-sm focus:border-indigo-400 focus:bg-white focus:ring-0 transition-all duration-300 placeholder:text-slate-400;
+        @apply block w-full rounded-2xl border-slate-200 bg-white px-6 py-4 text-sm font-bold text-slate-900 shadow-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all duration-300 placeholder:text-slate-400;
     }
 
     .human-badge {
-        @apply inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all;
+        @apply inline-flex items-center px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest border transition-all shadow-sm;
     }
 
     .human-badge-indigo {
-        @apply bg-indigo-50 text-indigo-700 border-indigo-100;
+        @apply bg-indigo-50 text-indigo-700 border-indigo-200/50;
     }
 
     .human-badge-emerald {
-        @apply bg-emerald-50 text-emerald-700 border-emerald-100;
+        @apply bg-emerald-50 text-emerald-700 border-emerald-200/50;
     }
 
     .scrollbar-hide::-webkit-scrollbar {

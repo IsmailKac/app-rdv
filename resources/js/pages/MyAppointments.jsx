@@ -69,15 +69,20 @@ export default function MyAppointments() {
     );
 
     return (
-        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-                <header className="mb-12">
+        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 relative z-0 overflow-hidden">
+            {/* Animated Background */}
+            <div className="absolute inset-0 pointer-events-none -z-10">
+                <div className="absolute top-[0%] right-[0%] w-[500px] h-[500px] bg-indigo-300/30 rounded-full mix-blend-multiply filter blur-[120px] animate-blob"></div>
+                <div className="absolute bottom-[0%] left-[-10%] w-[600px] h-[600px] bg-sky-300/20 rounded-full mix-blend-multiply filter blur-[120px] animate-blob" style={{ animationDelay: '2s' }}></div>
+            </div>
+            <div className="max-w-4xl mx-auto relative z-10">
+                <header className="mb-12 animate-fade-in-up">
                     <div className="flex items-center gap-3 text-xs font-bold text-indigo-600 uppercase tracking-widest mb-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-600 shadow-[0_0_10px_2px_rgba(79,70,229,0.5)]" />
                         Historique de Santé
                     </div>
-                    <h1 className="text-4xl font-extrabold text-slate-900 font-heading tracking-tight mb-4">
-                        Mes <span className="text-indigo-600">Consultations</span>
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 font-heading tracking-tight mb-4 drop-shadow-sm">
+                        Mes <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-600">Consultations</span>
                     </h1>
                     <p className="text-lg text-slate-500 font-medium max-w-2xl leading-relaxed">
                         Retrouvez ici toute l'activité de votre parcours de santé, gérez vos rendez-vous et donnez votre avis.
@@ -93,15 +98,15 @@ export default function MyAppointments() {
                 )}
 
                 {appointments.length === 0 ? (
-                    <div className="human-card p-20 text-center bg-slate-50/50 border-dashed">
-                        <div className="text-5xl mb-6 opacity-30">📅</div>
-                        <h2 className="text-2xl font-bold text-slate-900 font-heading mb-4">Aucun rendez-vous trouvé</h2>
-                        <p className="text-slate-500 font-medium max-w-sm mx-auto mb-10 leading-relaxed">
-                            Votre historique est vide pour le moment. Prenez votre premier rendez-vous avec l'un de nos spécialistes.
+                    <div className="glass-card p-24 text-center border border-white/60 shadow-soft">
+                        <div className="text-6xl mb-8 animate-float inline-block">📅</div>
+                        <h2 className="text-3xl font-extrabold text-slate-900 font-heading tracking-tight mb-4">Aucune réservation pour le moment.</h2>
+                        <p className="text-slate-500 text-lg font-medium max-w-md mx-auto mb-10 leading-relaxed">
+                            Prenez votre premier rendez-vous en ligne avec l'un de nos spécialistes de santé certifiés.
                         </p>
                         <button
                             onClick={() => navigate('/doctors')}
-                            className="human-button-primary px-10 py-4 text-base"
+                            className="human-button-primary px-10 py-5 text-base shadow-indigo-200/50 hover:shadow-indigo-300/50"
                         >
                             Explorer les médecins
                         </button>
@@ -113,7 +118,7 @@ export default function MyAppointments() {
                             .map((appointment, idx) => (
                                 <div
                                     key={appointment.id}
-                                    className="human-card p-8 group animate-in fade-in slide-in-from-bottom-4 duration-500"
+                                    className="glass-card bg-white/80 border border-white p-8 group animate-fade-in-up duration-500 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] transition-all hover:-translate-y-1"
                                     style={{ animationDelay: `${idx * 100}ms` }}
                                 >
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
@@ -188,12 +193,12 @@ export default function MyAppointments() {
                 {/* REDESIGNED REVIEW MODAL */}
                 {reviewModal.open && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setReviewModal({ ...reviewModal, open: false })}></div>
-                        <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+                        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-md animate-fade-in duration-300" onClick={() => setReviewModal({ ...reviewModal, open: false })}></div>
+                        <div className="relative bg-white/90 backdrop-blur-xl border border-white/50 rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] w-full max-w-md overflow-hidden animate-fade-in-up duration-300">
                             <div className="p-8 pb-0">
-                                <div className="h-12 w-12 bg-amber-50 rounded-2xl flex items-center justify-center text-2xl mb-6">⭐</div>
-                                <h3 className="text-2xl font-extrabold text-slate-900 font-heading tracking-tight mb-2">Évaluez votre expérience</h3>
-                                <p className="text-slate-500 font-medium text-sm">Votre avis aide les autres patients à choisir le bon spécialiste.</p>
+                                <div className="h-14 w-14 bg-gradient-to-br from-amber-50 to-amber-100 rounded-[1.25rem] flex items-center justify-center text-3xl mb-6 shadow-inner border border-amber-200/50">⭐</div>
+                                <h3 className="text-3xl font-extrabold text-slate-900 font-heading tracking-tight mb-2 drop-shadow-sm">Votre expérience</h3>
+                                <p className="text-slate-500 font-medium text-sm">Votre avis aide les autres patients à choisir le bon spécialiste pour leur santé.</p>
                             </div>
 
                             <form onSubmit={handleReviewSubmit} className="p-8 space-y-8">

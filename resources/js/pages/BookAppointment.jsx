@@ -87,33 +87,35 @@ export default function BookAppointment() {
     );
 
     return (
-        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-5xl mx-auto">
+        <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 relative z-0 overflow-hidden">
+            {/* Animated Background */}
+            <div className="absolute inset-0 pointer-events-none -z-10">
+                <div className="absolute top-[0%] left-[-10%] w-[500px] h-[500px] bg-indigo-300/30 rounded-full mix-blend-multiply filter blur-[120px] animate-blob"></div>
+                <div className="absolute bottom-[0%] right-[-10%] w-[600px] h-[600px] bg-emerald-300/20 rounded-full mix-blend-multiply filter blur-[120px] animate-blob" style={{ animationDelay: '2s' }}></div>
+            </div>
+
+            <div className="max-w-5xl mx-auto relative z-10">
                 {/* Doctor Brief Card */}
-                <div className="human-card p-8 bg-white mb-12 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="glass-card p-10 bg-white/80 border border-white mb-12 animate-fade-in-up duration-500 shadow-premium">
                     <div className="sm:flex items-center gap-8">
-                        <div className="h-24 w-24 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-extrabold text-4xl shadow-lg shadow-indigo-100 font-heading">
+                        <div className="h-28 w-28 rounded-[2rem] bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white font-extrabold text-5xl shadow-[0_20px_40px_-15px_rgba(79,70,229,0.5)] font-heading ring-4 ring-white">
                             {doctor.name.charAt(0)}
                         </div>
                         <div className="mt-6 sm:mt-0 flex-1">
-                            <div className="flex items-center gap-3 text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">
-                                <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                            <div className="flex items-center gap-3 text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">
+                                <span className="h-2 w-2 rounded-full bg-indigo-600 shadow-[0_0_10px_2px_rgba(79,70,229,0.5)]" />
                                 Spécialiste hautement qualifié
                             </div>
-                            <h1 className="text-3xl font-extrabold text-slate-900 font-heading tracking-tight mb-2">
+                            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 font-heading tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-900 pb-1">
                                 {doctor.name.startsWith('Dr.') ? doctor.name : `Dr. ${doctor.name}`}
                             </h1>
                             <div className="flex flex-wrap items-center gap-6">
-                                <span className="text-sm font-bold text-slate-500 flex items-center gap-2">
-                                    <span className="text-lg">🩺</span> {doctor.doctor_profile?.specialty?.name || 'Médecin Généraliste'}
+                                <span className="text-sm font-bold text-slate-600 flex items-center gap-2 bg-slate-100/50 px-4 py-2 rounded-xl border border-slate-200/50">
+                                    <span className="text-lg opacity-70">🩺</span> {doctor.doctor_profile?.specialty?.name || 'Médecin Généraliste'}
                                 </span>
-                                <span className="text-sm font-bold text-slate-500 flex items-center gap-2">
-                                    <span className="text-lg">📍</span> {doctor.doctor_profile?.office_address || 'Consultation en ligne'}
+                                <span className="text-sm font-bold text-slate-600 flex items-center gap-2 bg-slate-100/50 px-4 py-2 rounded-xl border border-slate-200/50">
+                                    <span className="text-lg opacity-70">📍</span> {doctor.doctor_profile?.office_address || 'Consultation en ligne'}
                                 </span>
-                                <div className="flex items-center text-amber-500 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">
-                                    <span className="text-xs font-black mr-1">4.9</span>
-                                    <span className="text-xs">★</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,7 +196,7 @@ export default function BookAppointment() {
 
                     {/* Notes and Summary */}
                     <div className="lg:col-span-1">
-                        <div className="human-card p-8 bg-white sticky top-12 space-y-8">
+                        <div className="glass-card p-8 bg-white/60 border border-white sticky top-12 space-y-8 shadow-soft">
                             <div>
                                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Note (Optionnelle)</h3>
                                 <textarea
